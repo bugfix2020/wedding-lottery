@@ -32,8 +32,6 @@ export default function RootLayout({
         {giftImages.map(href => (
           <link key={href} rel="preload" as="image" href={href} />
         ))}
-        <link rel="preload" as="audio" href="/wedding-lottery/audio/rolling.mp3" />
-        <link rel="preload" as="audio" href="/wedding-lottery/audio/win.mp3" />
       </head>
       <body className={`font-sans antialiased`} suppressHydrationWarning>
         {children}
