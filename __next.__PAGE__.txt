@@ -1,0 +1,9 @@
+1:"$Sreact.fragment"
+2:I[28513,["/wedding-lottery/_next/static/chunks/dd4e08de5b0b925f.js"],"ClientPageRoot"]
+3:I[87177,["/wedding-lottery/_next/static/chunks/0db55a15b9782de5.js"],"default"]
+6:I[19441,["/wedding-lottery/_next/static/chunks/dd4e08de5b0b925f.js"],"OutletBoundary"]
+7:"$Sreact.suspense"
+0:{"buildId":"0WbqBZRnVhrMLyC2m-69V","rsc":["$","$1","c",{"children":[["$","$L2",null,{"Component":"$3","serverProvidedParams":{"searchParams":{},"params":{},"promises":["$@4","$@5"]}}],[["$","script","script-0",{"src":"/wedding-lottery/_next/static/chunks/0db55a15b9782de5.js","async":true}]],["$","$L6",null,{"children":["$","$7",null,{"name":"Next.MetadataOutlet","children":"$@8"}]}]]}],"loading":null,"isPartial":false}
+4:{}
+5:"$0:rsc:props:children:0:props:serverProvidedParams:params"
+8:null

@@ -1,0 +1,4 @@
+1:"$Sreact.fragment"
+2:I[92888,["/wedding-lottery/_next/static/chunks/dd4e08de5b0b925f.js"],"default"]
+3:I[71069,["/wedding-lottery/_next/static/chunks/dd4e08de5b0b925f.js"],"default"]
+0:{"buildId":"0WbqBZRnVhrMLyC2m-69V","rsc":["$","$1","c",{"children":[null,["$","$L2",null,{"parallelRouterKey":"children","template":["$","$L3",null,{}]}]]}],"loading":null,"isPartial":false}

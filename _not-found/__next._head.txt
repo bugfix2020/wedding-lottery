@@ -1,0 +1,8 @@
+1:"$Sreact.fragment"
+2:I[19441,["/wedding-lottery/_next/static/chunks/dd4e08de5b0b925f.js"],"ViewportBoundary"]
+4:I[19441,["/wedding-lottery/_next/static/chunks/dd4e08de5b0b925f.js"],"MetadataBoundary"]
+5:"$Sreact.suspense"
+7:I[21404,["/wedding-lottery/_next/static/chunks/dd4e08de5b0b925f.js"],"IconMark"]
+0:{"buildId":"0WbqBZRnVhrMLyC2m-69V","rsc":["$","$1","h",{"children":[["$","meta",null,{"name":"robots","content":"noindex"}],["$","$L2",null,{"children":"$@3"}],["$","div",null,{"hidden":true,"children":["$","$L4",null,{"children":["$","$5",null,{"name":"Next.Metadata","children":"$@6"}]}]}],["$","meta",null,{"name":"next-size-adjust","content":""}]]}],"loading":null,"isPartial":false}
+3:[["$","meta","0",{"charSet":"utf-8"}],["$","meta","1",{"name":"viewport","content":"width=device-width, initial-scale=1"}]]
+6:[["$","title","0",{"children":"郑雨 & 胡紫萱 · 婚礼抽奖"}],["$","meta","1",{"name":"description","content":"婚礼礼品抽奖系统"}],["$","meta","2",{"name":"generator","content":"v0.app"}],["$","link","3",{"rel":"icon","href":"/wedding-lottery/favicon.svg"}],["$","link","4",{"rel":"apple-touch-icon","href":"/wedding-lottery/favicon.svg"}],["$","$L7","5",{}]]
