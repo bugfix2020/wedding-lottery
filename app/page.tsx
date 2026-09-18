@@ -112,6 +112,27 @@ export default function LotteryPage() {
   useEffect(() => {
     phaseRef.current = drawPhase
   }, [drawPhase])
+
+  // 预加载全部礼品图与音效，滚动/揭晓时无需现拉
+  useEffect(() => {
+    const imgUrls = Array.from(
+      new Set(PRIZE_TIERS.flatMap(t => t.gifts.map(g => g.image)))
+    )
+    imgUrls.forEach(src => {
+      const img = new Image()
+      img.decoding = 'async'
+      img.src = src
+    })
+    const preloadAudio = (src: string) => {
+      const a = new Audio()
+      a.preload = 'auto'
+      a.src = src
+      a.load()
+    }
+    preloadAudio(ROLLING_SOUND_URL)
+    preloadAudio(WIN_SOUND_URL)
+  }, [])
+
   useEffect(() => {
     levelRef.current = selectedLevel
   }, [selectedLevel])
