@@ -79,8 +79,8 @@ const SPIN = {
 }
 
 // 本地原声音效（已从 OSS 下载，不再依赖签名）
-const ROLLING_SOUND_URL = '/audio/rolling.mp3'
-const WIN_SOUND_URL = '/audio/win.mp3'
+const ROLLING_SOUND_URL = '/wedding-lottery/audio/rolling.mp3'
+const WIN_SOUND_URL = '/wedding-lottery/audio/win.mp3'
 
 type SpinPhase = 'accel' | 'cruise' | 'decel'
 
