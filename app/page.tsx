@@ -70,6 +70,20 @@ function bezierEaseIn(t: number): number {
 // 减速时长：手动按停止后，快→慢再揭晓
 const DECEL_LEAD_MS = 1700
 
+/**
+ * 结束键 x/y 指定的候选奖品 id（按奖项级别，多候选则在有库存者中随机）。
+ * 未列出的级别：x/y 只负责结束，结果仍在本奖项内随机。
+ * 一等奖：x → 吹风机，y → 蓝牙耳机
+ * 二等奖：x → 保温杯，y → 护肤套装
+ * 三等奖：完全随机（不指定）
+ * 幸运奖：x → 香烟（两条目随机），y → 沐浴露/洗发乳 随机二选一
+ */
+const STOP_KEY_FORCED_GIFT: Partial<Record<number, { x: string[]; y: string[] }>> = {
+  1: { x: ['l1-hairdryer'], y: ['l1-earbuds'] },
+  2: { x: ['l2-cup'], y: ['l2-skincare'] },
+  4: { x: ['l4-cigarette-hall', 'l4-cigarette-pack'], y: ['l4-bodywash', 'l4-shampoo'] },
+}
+
 const SPIN = {
   slowMs: 260,
   fastMs: 42,
@@ -109,6 +123,8 @@ export default function LotteryPage() {
   const spinStartRef = useRef(0)
   const decelStartRef = useRef(0)
   const giftTypesRef = useRef<Gift[]>([])
+  /** 结束键 x/y 锁定的候选奖品 id；抽奖开始/揭晓时清空 */
+  const forcedGiftIdsRef = useRef<string[] | null>(null)
 
   useEffect(() => {
     phaseRef.current = drawPhase
@@ -198,7 +214,17 @@ export default function LotteryPage() {
     const tier = PRIZE_TIERS.find(t => t.level === targetLevel)
     if (!tier) return
 
-    const gift = pickRandomGift(targetLevel, remainingRef.current)
+    // 结束键 x/y 指定的候选奖品优先（仅本奖项内仍有库存的候选，随机取一；无可用候选则回退随机）
+    const forcedIds = forcedGiftIdsRef.current
+    forcedGiftIdsRef.current = null
+    const forcedPool = (forcedIds ?? []).filter(
+      id => (remainingRef.current[id] ?? 0) > 0 && tier.gifts.some(g => g.id === id)
+    )
+    const forced =
+      forcedPool.length > 0
+        ? (tier.gifts.find(g => g.id === forcedPool[Math.floor(Math.random() * forcedPool.length)]) ?? null)
+        : null
+    const gift = forced ?? pickRandomGift(targetLevel, remainingRef.current)
     if (!gift) {
       stopRollingSound()
       setDrawPhase('idle')
@@ -247,6 +273,7 @@ export default function LotteryPage() {
       if (targetTier.drawable === false) return
       if (tierRemaining(targetTier, remainingRef.current) <= 0 || phaseRef.current === 'rolling') return
 
+      forcedGiftIdsRef.current = null
       setSelectedLevel(targetLevel)
       setDrawPhase('rolling')
       setRevealedGift(null)
@@ -329,7 +356,7 @@ export default function LotteryPage() {
     decelStartRef.current = 0
   }, [stopRollingSound])
 
-  // Keyboard: 1/2/3/4 start-or-stop corresponding tier; Space/Enter stop; R reset
+  // Keyboard: 1/2/3/4 start corresponding tier; X/Y stop (1+X → hairdryer, 1+Y → earbuds); R reset; M mute
   useEffect(() => {
     const onKeyDown = (e: KeyboardEvent) => {
       if (e.repeat) return
@@ -338,22 +365,28 @@ export default function LotteryPage() {
         return
       }
 
-      // 开始按的数字，结束再按同一个数字
+      // 数字键：开始对应奖项的抽奖（滚动中忽略）
       if (e.key >= '1' && e.key <= '4') {
         e.preventDefault()
         const level = Number(e.key)
-        const phase = phaseRef.current
-        if (phase === 'rolling') {
-          if (levelRef.current === level) {
-            handleStopDraw()
-          }
-          return
-        }
-        if (phase === 'idle') {
+        if (phaseRef.current === 'idle') {
           const tier = PRIZE_TIERS.find(t => t.level === level)
           if (tier && tier.drawable !== false && tierRemaining(tier, remainingRef.current) > 0) {
             handleStartDraw(level)
           }
+        }
+        return
+      }
+
+      // x / y：结束滚动，按 STOP_KEY_FORCED_GIFT 指定奖品（三等奖无指定、完全随机）
+      const stopKey = e.key.toLowerCase()
+      if (stopKey === 'x' || stopKey === 'y') {
+        if (phaseRef.current === 'rolling') {
+          e.preventDefault()
+          // 已进入减速阶段则忽略，避免后按的键覆盖先按的指定
+          if (spinPhaseRef.current === 'decel') return
+          forcedGiftIdsRef.current = STOP_KEY_FORCED_GIFT[levelRef.current]?.[stopKey] ?? null
+          handleStopDraw()
         }
         return
       }

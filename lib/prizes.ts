@@ -118,7 +118,6 @@ export const PRIZE_TIERS: PrizeTier[] = [
     name: '幸运奖',
     key: '4',
     color: 'purple',
-    drawable: false,
     gifts: [
       {
         id: 'l4-bodywash',
