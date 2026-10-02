@@ -12,6 +12,8 @@ export interface PrizeTier {
   name: string
   key: string
   color: 'yellow' | 'slate' | 'orange' | 'purple'
+  /** false 时仅在界面展示，不参与抽取 */
+  drawable?: boolean
   gifts: Gift[]
 }
 
@@ -51,13 +53,6 @@ export const PRIZE_TIERS: PrizeTier[] = [
         image: '/wedding-lottery/gifts/l1-earbuds.png',
         quantity: 4,
       },
-      {
-        id: 'l1-cigarette',
-        name: '人民大会堂盛京中支香烟',
-        desc: '盛京中支',
-        image: '/wedding-lottery/gifts/l1-cigarette.png',
-        quantity: 6,
-      },
     ],
   },
   {
@@ -80,13 +75,6 @@ export const PRIZE_TIERS: PrizeTier[] = [
         image: '/wedding-lottery/gifts/l2-cup.png',
         quantity: 4,
       },
-      {
-        id: 'l2-plush',
-        name: '噜噜、噜妹',
-        desc: '卡皮巴拉大玩偶',
-        image: '/wedding-lottery/gifts/l2-plush.png',
-        quantity: 4,
-      },
     ],
   },
   {
@@ -100,14 +88,14 @@ export const PRIZE_TIERS: PrizeTier[] = [
         name: '正山小种红茶礼盒',
         desc: '武夷红茶 · 100g',
         image: '/wedding-lottery/gifts/l3-tea-zhengshan.jpg',
-        quantity: 3,
+        quantity: 4,
       },
       {
         id: 'l3-jinjunmei',
         name: '金骏眉红茶礼盒',
         desc: '武夷金芽 · 100g',
         image: '/wedding-lottery/gifts/l3-tea-jinjunmei.jpg',
-        quantity: 3,
+        quantity: 4,
       },
       {
         id: 'l3-chenpi',
@@ -130,34 +118,35 @@ export const PRIZE_TIERS: PrizeTier[] = [
     name: '幸运奖',
     key: '4',
     color: 'purple',
+    drawable: false,
     gifts: [
       {
-        id: 'l4-minfadian',
-        name: '《民法典》实用版',
-        desc: '婚姻家庭编司法解释全新修订',
-        image: '/wedding-lottery/gifts/l4-book-minfadian.png',
-        quantity: 3,
+        id: 'l4-bodywash',
+        name: '茉莉依兰香氛洗发沐浴套装',
+        desc: '洗发水 800ml + 沐浴露 800ml',
+        image: '/wedding-lottery/gifts/l4-bodywash.jpg',
+        quantity: 4,
       },
       {
-        id: 'l4-eerguna',
-        name: '《额尔古纳河右岸》',
-        desc: '迟子建 · 茅盾文学奖',
-        image: '/wedding-lottery/gifts/l4-book-eerguna.png',
-        quantity: 3,
+        id: 'l4-shampoo',
+        name: '控秀洗发乳',
+        desc: 'Cōomshol · 沙龙级居家洗护 750ml',
+        image: '/wedding-lottery/gifts/l4-shampoo.jpg',
+        quantity: 4,
       },
       {
-        id: 'l4-ditan',
-        name: '《我与地坛》',
-        desc: '史铁生 · 精装典藏',
-        image: '/wedding-lottery/gifts/l4-book-ditan.png',
-        quantity: 3,
+        id: 'l4-cigarette-hall',
+        name: '人民大会堂盛京中支香烟',
+        desc: '盛京中支',
+        image: '/wedding-lottery/gifts/l4-cigarette-hall.png',
+        quantity: 5,
       },
       {
-        id: 'l4-chengyu',
-        name: '《成语大词典》',
-        desc: '商务印书馆 · 双色本',
-        image: '/wedding-lottery/gifts/l4-book-chengyu.png',
-        quantity: 3,
+        id: 'l4-cigarette-pack',
+        name: '人民大会堂香烟',
+        desc: '红盒装',
+        image: '/wedding-lottery/gifts/l4-cigarette-pack.jpg',
+        quantity: 5,
       },
     ],
   },

@@ -36,7 +36,7 @@ function buildInitialRemainingByGift(): Record<string, number> {
 
 function pickRandomGift(level: number, remainingByGift: Record<string, number>): Gift | null {
   const tier = PRIZE_TIERS.find(t => t.level === level)
-  if (!tier) return null
+  if (!tier || tier.drawable === false) return null
   const available = tier.gifts.filter(g => (remainingByGift[g.id] ?? 0) > 0)
   if (available.length === 0) return null
   return available[Math.floor(Math.random() * available.length)]
@@ -45,6 +45,7 @@ function pickRandomGift(level: number, remainingByGift: Record<string, number>):
 function collectDrawPool(remainingByGift: Record<string, number>): Gift[] {
   const pool: Gift[] = []
   for (const tier of PRIZE_TIERS) {
+    if (tier.drawable === false) continue
     for (const gift of tier.gifts) {
       if ((remainingByGift[gift.id] ?? 0) > 0) pool.push(gift)
     }
@@ -243,6 +244,7 @@ export default function LotteryPage() {
 
       const targetTier = PRIZE_TIERS.find(t => t.level === targetLevel)
       if (!targetTier) return
+      if (targetTier.drawable === false) return
       if (tierRemaining(targetTier, remainingRef.current) <= 0 || phaseRef.current === 'rolling') return
 
       setSelectedLevel(targetLevel)
@@ -349,7 +351,7 @@ export default function LotteryPage() {
         }
         if (phase === 'idle') {
           const tier = PRIZE_TIERS.find(t => t.level === level)
-          if (tier && tierRemaining(tier, remainingRef.current) > 0) {
+          if (tier && tier.drawable !== false && tierRemaining(tier, remainingRef.current) > 0) {
             handleStartDraw(level)
           }
         }
