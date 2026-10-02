@@ -34,3 +34,9 @@ next-env.d.ts
 !public/**/*.svg
 # macOS
 .DS_Store
+# desktop (Go + WebView2)
+/desktop/internal/server/web/*
+!/desktop/internal/server/web/.keep
+/dist/
+*.syso
+!desktop/winres/*.png

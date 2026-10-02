@@ -4,6 +4,7 @@
   "private": true,
   "scripts": {
     "build": "next build",
+    "build:desktop": "bash scripts/build-windows.sh",
     "dev": "next dev",
     "lint": "eslint .",
     "start": "next start"
