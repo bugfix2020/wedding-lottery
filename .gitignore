@@ -32,3 +32,5 @@ next-env.d.ts
 !public/**/*.png
 !public/**/*.jpg
 !public/**/*.svg
+# macOS
+.DS_Store
